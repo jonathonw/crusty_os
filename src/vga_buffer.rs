@@ -28,10 +28,10 @@ pub enum Color {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(transparent)]
-struct ColorCode(u8);
+pub struct ColorCode(u8);
 
 impl ColorCode {
-    fn new(foreground: Color, background: Color) -> ColorCode {
+    pub fn new(foreground: Color, background: Color) -> ColorCode {
         ColorCode((background as u8) << 4 | (foreground as u8))
     }
 }
@@ -77,6 +77,10 @@ impl Writer {
                 self.column_position += 1;
             }
         }
+    }
+
+    pub fn change_color(&mut self, color_code: ColorCode) {
+        self.color_code = color_code;
     }
 
     fn new_line(&mut self) {

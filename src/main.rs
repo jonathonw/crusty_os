@@ -19,6 +19,9 @@ pub extern "C" fn _start() -> ! {
 /// This function is called on panic.
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
+    use crate::vga_buffer::ColorCode;
+    use crate::vga_buffer::Color;
+    vga_buffer::WRITER.lock().change_color(ColorCode::new(Color::LightRed, Color::Black));
     println!("{}", info);
     loop {}
 }
